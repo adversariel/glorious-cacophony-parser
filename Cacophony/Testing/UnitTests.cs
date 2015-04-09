@@ -7,12 +7,13 @@ namespace Testing
     [TestClass]
     public class UnitTests
     {
-        [TestMethod]
+        [TestMethod()]
         public void TestPosToFreq()
         {
             int c = Noises.PositionToFreq(40);
 
             Assert.AreEqual(261, c);
         }
+
     }
 }
