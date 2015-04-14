@@ -10,9 +10,9 @@ namespace Cacophony
     {
         static void Main(string[] args)
         {
-            int note = PositionToFreq(40);
-            int pos = NameToPosition("C1");
-            Console.WriteLine(pos);
+            
+            int pos = NameToPosition("A1");
+            Console.WriteLine("Position: " + pos);
             Console.ReadLine();
         }
 
@@ -35,42 +35,81 @@ namespace Cacophony
         {
             int pos = 0;
             char[] n = name.ToUpper().ToCharArray();
-            char val = n[0];
-            // if 1-3
             
-            // if 4+
-            switch(val)
-            {
-                case 'C':
-                    pos = 1;
-                    break;
-                case 'D':
-                    pos = 3;
-                    break;
-                case 'E':
-                    pos = 4;
-                    break;
-                case 'F':
-                    pos = 4;
-                    break;
-                case 'G':
-                    pos = 5;
-                    break;
-                case 'A':
-                    pos = 6;
-                    break;
-                case 'B':
-                    pos = 7;
-                    break;
+            // we assume the notes are coming in the correct format - [note, acc, octive] or [note, octive]
+            char note = n[0]; // note value
+            char acc = '\0'; // accidental - remember that chars are non nullable
+            int octave = 0; // octive value
+            if (Char.IsNumber(n[1])){ // if the second char is a number
+                octave = (int)Char.GetNumericValue(n[1]);
+            }
+            else{
+                acc = n[1];
+                octave = (int)Char.GetNumericValue(n[2]);
             }
 
+            switch(note)
+            {
+                case 'C':
+                    pos = 4;
+                    if(octave != 1) { // if the next character in the note name array is an integer
+                        Console.WriteLine(octave);
+                        pos = octaveIncrementer(pos, octave);
+                    }
+
+                    break;
+                case 'D':
+                    pos = 6;
+                    if(octave != 1) {
+                        pos = octaveIncrementer(pos, octave);
+                    }
+                    break;
+                case 'E':
+                    pos = 8;
+                    if(octave != 1) {
+                        pos = octaveIncrementer(pos, octave);
+                    }
+                    break;
+                case 'F':
+                    pos = 9;
+                    if(octave != 1) {
+                        pos = octaveIncrementer(pos, octave);
+                    }
+                    break;
+                case 'G':
+                    pos = 11;
+                    if(octave != 1) {
+                        pos = octaveIncrementer(pos, octave);
+                    }
+                    break;
+                case 'A':
+                    pos = 1;
+                    if(octave != 0) { // A0 = 1
+                        pos = pos + (octave * 13) - octave;     
+                    }
+                    break;
+                case 'B':
+                    pos = 3;
+                    if(octave != 0) {
+                        pos = pos + (octave * 13) - octave;
+                    }
+                    break;
+            }
             return pos;
         }
 
-        private int octaveIncrementer(char c)
+        static private int octaveIncrementer(int position, int oct)
         {
-            //if 
-            return 0;
+            Console.WriteLine("pos and oct: " + position + " , " + oct);
+            position = position + ((oct-1) * 13) - oct;
+            Console.WriteLine("function returns: " + position);
+            return position;
+        }
+
+        static private int accidentalIncrementer(int position, char acc)
+        {
+            
+            return position;
         }
     }
 }
