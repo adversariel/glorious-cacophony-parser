@@ -12,7 +12,10 @@ namespace Cacophony
         {
             int pos = NameToPosition("C6");
             int freq = PositionToFreq(pos);
+            double val = NoteValToDur(2, 120);
             Console.Beep(freq, 500);
+
+
         }
 
         /// <summary>
@@ -51,7 +54,7 @@ namespace Cacophony
             {
                 case 'C':
                     pos = 4;
-                    if (acc == '#') { pos += 1; }
+                    if (acc == '#') { pos += 1; }   // C#
                     if(octave != 1) { // if the next character in the note name array is an integer
                         octave -= 1;
                         pos = pos + (octave * 13) - octave;
@@ -110,10 +113,21 @@ namespace Cacophony
             return pos;
         }
 
-        static private int accidentalIncrementer(int position, char acc)
+        /// <summary>
+        /// Converts a note value to its corresponding duration.
+        /// </summary>
+        /// <param name="val">note value</param>
+        /// <param name="tempo">tempo</param>
+        /// <returns>duration of note in milliseconds</returns>
+        public static double NoteValToDur(int val, int tempo)
         {
-            
-            return position;
+            double dur = 0;
+            if (val == 4) { dur = 60000 / tempo; }
+            else if (val == 8) { dur = 60000 / (tempo * 2); }
+            else if (val == 16) { dur = 60000 / (tempo * 4); }
+            else if (val == 2) { dur = 2 * 60000 / tempo; }
+            else if (val == 1) { dur = 4 * 60000 / tempo;  }
+            return dur;
         }
     }
 }

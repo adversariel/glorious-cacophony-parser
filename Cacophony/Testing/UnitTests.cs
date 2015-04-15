@@ -136,5 +136,20 @@ namespace Testing
             Assert.AreEqual(70, pos7);
             Assert.AreEqual(72, pos8);
         }
+
+        [TestMethod()]
+        public void TestNoteDur()
+        {
+            double quarter = Noises.NoteValToDur(4, 120);
+            double half = Noises.NoteValToDur(2, 120);
+            double whole = Noises.NoteValToDur(1, 120);
+            double eighth = Noises.NoteValToDur(8, 120);
+            double sixteenth = Noises.NoteValToDur(16, 120);
+            Assert.AreEqual(500, quarter);
+            Assert.AreEqual(1000, half);
+            Assert.AreEqual(2000, whole);
+            Assert.AreEqual(250, eighth);
+            Assert.AreEqual(125, sixteenth);
+        }
     }
 }
