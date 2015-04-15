@@ -76,7 +76,7 @@ namespace Testing
         }
 
         [TestMethod()]
-        public void TestBtoPos()
+        public void TestCtoPos()
         {
             int pos1 = Noises.NameToPosition("C1");
             int pos2 = Noises.NameToPosition("C2");
@@ -85,14 +85,56 @@ namespace Testing
             int pos5 = Noises.NameToPosition("C5");
             int pos6 = Noises.NameToPosition("C6");
             int pos7 = Noises.NameToPosition("C7");
-            Assert.AreEqual(4, pos0);
-            Assert.AreEqual(15, pos1);
-            Assert.AreEqual(27, pos2);
-            Assert.AreEqual(39, pos3);
-            Assert.AreEqual(51, pos4);
-            Assert.AreEqual(63, pos5);
-            Assert.AreEqual(75, pos6);
-            Assert.AreEqual(87, pos7);
+            int pos8 = Noises.NameToPosition("C8");
+            Assert.AreEqual(4, pos1);
+            Assert.AreEqual(16, pos2);
+            Assert.AreEqual(28, pos3);
+            Assert.AreEqual(40, pos4);
+            Assert.AreEqual(52, pos5);
+            Assert.AreEqual(64, pos6);
+            Assert.AreEqual(76, pos7);
+            Assert.AreEqual(76, pos7);
+            Assert.AreEqual(88, pos8);
+        }
+
+        [TestMethod()]
+        public void TestDtoPos()
+        {
+            int pos1 = Noises.NameToPosition("D1");
+            int pos2 = Noises.NameToPosition("D2");
+            int pos3 = Noises.NameToPosition("D3");
+            int pos4 = Noises.NameToPosition("D4");
+            int pos5 = Noises.NameToPosition("D5");
+            int pos6 = Noises.NameToPosition("D6");
+            int pos7 = Noises.NameToPosition("D7");
+            Assert.AreEqual(6, pos1);
+            Assert.AreEqual(18, pos2);
+            Assert.AreEqual(30, pos3);
+            Assert.AreEqual(42, pos4);
+            Assert.AreEqual(54, pos5);
+            Assert.AreEqual(66, pos6);
+            Assert.AreEqual(78, pos7);
+        }
+
+        [TestMethod()]
+        public void TestAccToPos()
+        {
+            int pos1 = Noises.NameToPosition("A#0");
+            int pos2 = Noises.NameToPosition("C#1");
+            int pos3 = Noises.NameToPosition("Db1");
+            int pos4 = Noises.NameToPosition("F#1");
+            int pos5 = Noises.NameToPosition("Bb1");
+            int pos6 = Noises.NameToPosition("A#2");
+            int pos7 = Noises.NameToPosition("Gb6");
+            int pos8 = Noises.NameToPosition("G#6");
+            Assert.AreEqual(2, pos1);
+            Assert.AreEqual(5, pos2);
+            Assert.AreEqual(5, pos3);
+            Assert.AreEqual(10, pos4);
+            Assert.AreEqual(14, pos5);
+            Assert.AreEqual(26, pos6);
+            Assert.AreEqual(70, pos7);
+            Assert.AreEqual(72, pos8);
         }
     }
 }
