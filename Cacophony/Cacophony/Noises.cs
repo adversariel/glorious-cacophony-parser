@@ -10,13 +10,12 @@ namespace Cacophony
     {
         static void Main(string[] args)
         {
-            int pos = NameToPosition("C6");
-            int freq = PositionToFreq(pos);
-            double val = NoteValToDur(2, 120);
-            Console.Beep(freq, 500);
-
-
-        }
+            int tempo = 144;
+            string file = "C:\\Users\\Ariel\\Desktop\\crab_cannon.txt";
+            string score = ReadFile(file);
+            
+            Console.Beep(PositionToFreq(NameToPosition("C4")), NoteValToDur(2, tempo));
+        }    
 
         /// <summary>
         /// Static funtion for converting note position to frequency to pass to the internal beeper.
@@ -119,15 +118,22 @@ namespace Cacophony
         /// <param name="val">note value</param>
         /// <param name="tempo">tempo</param>
         /// <returns>duration of note in milliseconds</returns>
-        public static double NoteValToDur(int val, int tempo)
+        public static int NoteValToDur(int val, int tempo)
         {
-            double dur = 0;
-            if (val == 4) { dur = 60000 / tempo; }
-            else if (val == 8) { dur = 60000 / (tempo * 2); }
-            else if (val == 16) { dur = 60000 / (tempo * 4); }
-            else if (val == 2) { dur = 2 * 60000 / tempo; }
-            else if (val == 1) { dur = 4 * 60000 / tempo;  }
+            int dur = 0;
+            if (val == 4) { dur = 60000 / tempo; }                  // quarter
+            else if (val == 8) { dur = 60000 / (tempo * 2); }       // eighth
+            else if (val == 16) { dur = 60000 / (tempo * 4); }      // sixteenth
+            else if (val == 2) { dur = 2 * 60000 / tempo; }         // half
+            else if (val == 1) { dur = 4 * 60000 / tempo;  }        // whole
+            // TODO: also need an else in case there are note durations that can't be parsed
             return dur;
+        }
+
+
+        private static string ReadFile(string fileName)
+        {
+            return System.IO.File.ReadAllText(fileName);
         }
     }
 }
