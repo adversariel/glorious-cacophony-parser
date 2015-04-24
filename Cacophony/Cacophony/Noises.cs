@@ -11,7 +11,7 @@ namespace Cacophony
     {
         static void Main(string[] args)
         {
-            int tempo = 144;
+            int tempo = 244;
             string fileName = "C:\\Users\\Ariel\\Desktop\\crab_cannon.txt";
             string line;
             using (StreamReader sr = File.OpenText(fileName))
@@ -19,12 +19,15 @@ namespace Cacophony
                 while ((line = sr.ReadLine()) != null)
                 {
                     string[] note = line.Split(' ');
-                    NameToFreq(note[0]);
+                    int f = NameToFreq(note[0]);
+                    int dur = NoteValToDur(int.Parse(note[1]), tempo);
+                    Console.Beep(f, dur);
+                    Console.WriteLine(line);
 
                 }
             }
-            
-            Console.Beep(NameToFreq("C4"), NoteValToDur(2, tempo));
+
+            Console.ReadLine();
         }    
 
         /// <summary>
