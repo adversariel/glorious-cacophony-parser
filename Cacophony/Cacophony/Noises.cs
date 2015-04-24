@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Cacophony
 {
@@ -11,28 +12,27 @@ namespace Cacophony
         static void Main(string[] args)
         {
             int tempo = 144;
-            string file = "C:\\Users\\Ariel\\Desktop\\crab_cannon.txt";
-            string score = ReadFile(file);
+            string fileName = "C:\\Users\\Ariel\\Desktop\\crab_cannon.txt";
+            string line;
+            using (StreamReader sr = File.OpenText(fileName))
+            {
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] note = line.Split(' ');
+                    NameToFreq(note[0]);
+
+                }
+            }
             
-            Console.Beep(PositionToFreq(NameToPosition("C4")), NoteValToDur(2, tempo));
+            Console.Beep(NameToFreq("C4"), NoteValToDur(2, tempo));
         }    
 
         /// <summary>
-        /// Static funtion for converting note position to frequency to pass to the internal beeper.
-        /// </summary>
-        /// <param name="pos">Note position on a piano</param>
-        /// <returns>Frequency in Hertz</returns>
-        public static int PositionToFreq(int pos)
-        {
-            return (int) Math.Floor(Math.Pow(2, (float)(pos - 49) / 12) * 440);
-        }
-
-        /// <summary>
-        /// Function for converting conventional note name to position to pass to the PositionToFreq() function.
+        /// Function for converting conventional note name to frequency in Hz.
         /// </summary>
         /// <param name="name">Note name</param>
-        /// <returns>Position on a piano</returns>
-        public static int NameToPosition(String name)
+        /// <returns>Frequency in Hertz</returns>
+        public static int NameToFreq(String name)
         {
             int pos = 0;
             char[] n = name.ToCharArray();
@@ -109,7 +109,7 @@ namespace Cacophony
                     }
                     break;
             }
-            return pos;
+            return (int)Math.Floor(Math.Pow(2, (float)(pos - 49) / 12) * 440); //in-line conversion of position to Hz
         }
 
         /// <summary>
@@ -128,12 +128,6 @@ namespace Cacophony
             else if (val == 1) { dur = 4 * 60000 / tempo;  }        // whole
             // TODO: also need an else in case there are note durations that can't be parsed
             return dur;
-        }
-
-
-        private static string ReadFile(string fileName)
-        {
-            return System.IO.File.ReadAllText(fileName);
         }
     }
 }
